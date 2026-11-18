@@ -8,6 +8,8 @@ What each of the 24 clubs in the 2026/27 EFL Championship earned, spent on wages
 - **Profit or loss before tax**, including player sales
 - **A full sortable table**, plus a page for each club with a step-by-step breakdown from revenue to profit or loss and a link to the exact pages in the original filing
 
+Each section has its own link: `#wages`, `#revenue`, `#results`, `#clubs`, `#method`, and every club has one too (for example `#cardiff` or `#west-ham`), so you can send someone straight to their club.
+
 ## Running it
 
 Open `index.html` in a browser. No build step and no dependencies.

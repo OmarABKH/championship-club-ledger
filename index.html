@@ -7,72 +7,121 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap" />
 <link rel="stylesheet" href="css/styles.css" />
 
-    <div class="wrap">
-      <header class="site">
-        <p class="kicker">Championship 2026/27 · Club Ledger</p>
-        <h1>The money behind the Championship</h1>
-        <p>What each of this season's 24 clubs earned, spent on wages and lost, taken from their latest accounts at Companies House. Most cover the 2024/25 season. Click any club for the full breakdown.</p>
-      </header>
+<!-- One page, several views. Each view has a bare #token so it can be linked to directly
+     (#wages, #revenue, #results, #clubs, #method, or a club's slug such as #cardiff). -->
+<nav class="topnav" aria-label="Sections">
+  <div class="wrap topnav-inner">
+    <a class="brand" href="#overview">Club Ledger</a>
+    <div class="tabs">
+      <a href="#overview" data-nav="overview">Overview</a>
+      <a href="#wages" data-nav="wages">Wages</a>
+      <a href="#revenue" data-nav="revenue">Revenue</a>
+      <a href="#results" data-nav="results">Profit &amp; loss</a>
+      <a href="#clubs" data-nav="clubs">Clubs</a>
+      <a href="#method" data-nav="method">Method</a>
+    </div>
+  </div>
+</nav>
 
-      <div class="tiles" id="tiles"></div>
+<main class="wrap">
+  <!-- Overview -->
+  <section data-view="overview" aria-labelledby="overview-title">
+    <header class="site">
+      <p class="kicker">Championship 2026/27</p>
+      <h1 id="overview-title">The money behind the Championship</h1>
+      <p>What each of this season's 24 clubs earned, spent on wages and lost, taken from their latest accounts at Companies House. Most cover the 2024/25 season.</p>
+    </header>
+    <div class="tiles" id="tiles"></div>
+    <div class="highlights" id="highlights"></div>
+  </section>
 
-      <section class="card" aria-labelledby="wages-title">
-        <h2 id="wages-title">Wages as a share of revenue</h2>
-        <p class="lede">Staff costs (wages, bonuses, social security and pensions) divided by revenue. The line marks 100%: clubs to the right of it spent more on staff than they brought in, before any other costs.</p>
-        <div id="chart-wages"></div>
-      </section>
+  <!-- Wages -->
+  <section data-view="wages" hidden>
+    <header class="view-head">
+      <p class="kicker">Wages</p>
+      <h1>Wages as a share of revenue</h1>
+      <p class="lede">Staff costs (wages, bonuses, social security and pensions) divided by revenue. The line marks 100%: clubs to the right of it spent more on staff than they brought in, before any other costs.</p>
+    </header>
+    <div class="card"><div id="chart-wages"></div></div>
+  </section>
 
-      <section class="card" aria-labelledby="mix-title">
-        <h2 id="mix-title">Where the money comes from</h2>
-        <p class="lede">Revenue split into matchday (tickets and gate receipts), broadcasting (TV money, parachute and solidarity payments, prize money) and everything else (sponsorship, retail, catering, events).</p>
+  <!-- Revenue -->
+  <section data-view="revenue" hidden>
+    <header class="view-head">
+      <p class="kicker">Revenue</p>
+      <h1>Where the money comes from</h1>
+      <p class="lede">Revenue split into matchday (tickets and gate receipts), broadcasting (TV money, parachute and solidarity payments, prize money) and everything else (sponsorship, retail, catering, events).</p>
+    </header>
+    <div class="card">
+      <div class="chart-tools">
         <div class="controls" role="group" aria-label="Show revenue as">
           <button type="button" data-mix="money" aria-pressed="true">£m</button>
           <button type="button" data-mix="share" aria-pressed="false">% of revenue</button>
         </div>
         <div class="legend" id="legend-mix"></div>
-        <div id="chart-mix"></div>
-        <p class="lede" id="mix-footnote" style="margin:12px 0 0"></p>
-      </section>
-
-      <section class="card" aria-labelledby="result-title">
-        <h2 id="result-title">Profit or loss before tax</h2>
-        <p class="lede">Includes profits from selling players, which is how many clubs close the gap between what they earn and what they spend.</p>
-        <div id="chart-result"></div>
-      </section>
-
-      <section class="card" aria-labelledby="table-title">
-        <h2 id="table-title">All the figures</h2>
-        <p class="lede">Click a column to sort, or a club for its full breakdown and a link to the original filing.</p>
-        <div class="table-scroll"><table class="data" id="table"></table></div>
-      </section>
-
-      <section class="card method" aria-labelledby="method-title">
-        <h2 id="method-title">How this is put together</h2>
-        <ul>
-          <li><b>Source.</b> Each club's most recent annual accounts covering the 2024/25 season, filed at Companies House (Bolton's are published by the club for its parent company). Figures are as reported, in pounds.</li>
-          <li><b>Which company.</b> The club's main operating company, or the group that owns it where that's where the full accounts are filed. The company used is named on each club's page.</li>
-          <li><b>Different year ends.</b> Most clubs' years end on 30 June; some use 31 May or 31 July. All cover a single 12-month season unless noted.</li>
-          <li><b>Revenue categories.</b> Clubs split revenue differently. Their lines are mapped to matchday, broadcasting and commercial & other; anything that doesn't fit cleanly (e.g. catering) goes into commercial & other.</li>
-          <li><b>Checking the numbers.</b> The filings are scanned images, so they're read with OCR (text recognition). Every revenue breakdown is checked to add up to the reported total, and staff costs and the result before tax are checked against the income statement.</li>
-          <li><b>Not a spending-rules (PSR) calculation.</b> Clubs can exclude spending on academies, women's football, community work and infrastructure from the EFL's profit and sustainability limits, and those figures aren't fully disclosed. A large loss here doesn't by itself mean a club broke the rules.</li>
-        </ul>
-      </section>
-
-      <footer class="site">Data as of <span id="as-of"></span>. Not affiliated with any club or league.</footer>
-    </div>
-
-    <dialog class="club" id="club-dialog" aria-labelledby="club-title">
-      <div class="head">
-        <div>
-          <h3 id="club-title"></h3>
-          <div class="meta" id="club-meta"></div>
-        </div>
-        <button type="button" class="close" id="club-close" aria-label="Close">✕</button>
       </div>
-      <div class="body" id="club-body"></div>
-    </dialog>
+      <div id="chart-mix"></div>
+      <p class="footnote" id="mix-footnote"></p>
+    </div>
+  </section>
 
-    <script src="data/clubs.js"></script>
-    <script src="js/charts.js"></script>
-    <script src="js/app.js"></script>
+  <!-- Profit & loss -->
+  <section data-view="results" hidden>
+    <header class="view-head">
+      <p class="kicker">Profit &amp; loss</p>
+      <h1>Profit or loss before tax</h1>
+      <p class="lede">Includes profits from selling players, which is how many clubs close the gap between what they earn and what they spend.</p>
+    </header>
+    <div class="card"><div id="chart-result"></div></div>
+  </section>
 
+  <!-- Clubs table -->
+  <section data-view="clubs" hidden>
+    <header class="view-head">
+      <p class="kicker">Clubs</p>
+      <h1>All the figures</h1>
+      <p class="lede">Click a column to sort, or a club for its full breakdown and a link to the original filing.</p>
+    </header>
+    <div class="card"><div class="table-scroll"><table class="data" id="table"></table></div></div>
+  </section>
+
+  <!-- One club -->
+  <section data-view="club" hidden>
+    <div class="club-nav">
+      <a href="#clubs" class="back">← All clubs</a>
+      <label class="jump">
+        <span>Jump to</span>
+        <select id="club-select" aria-label="Jump to another club"></select>
+      </label>
+    </div>
+    <header class="view-head">
+      <p class="kicker" id="club-meta"></p>
+      <h1 id="club-title"></h1>
+    </header>
+    <div id="club-body"></div>
+  </section>
+
+  <!-- Method -->
+  <section data-view="method" class="method" hidden>
+    <header class="view-head">
+      <p class="kicker">Method</p>
+      <h1>How this is put together</h1>
+    </header>
+    <div class="card">
+      <ul>
+        <li><b>Source.</b> Each club's most recent annual accounts covering the 2024/25 season, filed at Companies House (Bolton's are published by the club for its parent company). Figures are as reported, in pounds.</li>
+        <li><b>Which company.</b> The club's main operating company, or the group that owns it where that's where the full accounts are filed. The company used is named on each club's page.</li>
+        <li><b>Different year ends.</b> Most clubs' years end on 30 June; some use 31 May or 31 July. All cover a single 12-month season unless noted.</li>
+        <li><b>Revenue categories.</b> Clubs split revenue differently. Their lines are mapped to matchday, broadcasting and commercial &amp; other; anything that doesn't fit cleanly (e.g. catering) goes into commercial &amp; other.</li>
+        <li><b>Checking the numbers.</b> The filings are scanned images, so they're read with OCR (text recognition). Every revenue breakdown is checked to add up to the reported total, and staff costs and the result before tax are checked against the income statement.</li>
+        <li><b>Not a spending-rules (PSR) calculation.</b> Clubs can exclude spending on academies, women's football, community work and infrastructure from the EFL's profit and sustainability limits, and those figures aren't fully disclosed. A large loss here doesn't by itself mean a club broke the rules.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="site">Data as of <span id="as-of"></span>. Not affiliated with any club or league.</footer>
+</main>
+
+<script src="data/clubs.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
