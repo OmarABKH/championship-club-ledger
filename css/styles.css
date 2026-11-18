@@ -17,9 +17,10 @@
   --loss: #e34948;
   --hover: rgba(11, 11, 11, 0.04);
   --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme="light"])) {
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
     --page: #0d0d0d;
     --surface: #1a1a19;
@@ -59,11 +60,15 @@
 body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.55 var(--font); }
 a { color: var(--series-1); }
 
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
 
 header.site { padding: 40px 0 8px; }
 header.site .kicker { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 6px; }
-header.site h1 { margin: 0 0 8px; font-size: 32px; letter-spacing: -0.02em; line-height: 1.15; }
+header.site h1 { margin: 0 0 8px; font: 700 44px/1.05 var(--display); letter-spacing: 0; text-transform: uppercase; text-wrap: balance; }
 header.site p { margin: 0; color: var(--ink-2); max-width: 680px; }
 
 /* Stat tiles */
@@ -77,7 +82,7 @@ header.site p { margin: 0; color: var(--ink-2); max-width: 680px; }
 
 /* Chart cards */
 section.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 16px 0; }
-section.card h2 { margin: 0 0 4px; font-size: 19px; }
+section.card h2 { margin: 0 0 4px; font: 600 24px/1.2 var(--display); text-wrap: balance; }
 section.card .lede { margin: 0 0 16px; color: var(--ink-2); font-size: 14px; max-width: 720px; }
 .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--ink-2); margin: 0 0 12px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -137,7 +142,7 @@ dialog.club {
 }
 dialog.club::backdrop { background: rgba(0, 0, 0, 0.35); }
 dialog.club .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 18px 20px 0; }
-dialog.club h3 { margin: 0; font-size: 22px; }
+dialog.club h3 { margin: 0; font: 700 28px/1.15 var(--display); text-transform: uppercase; }
 dialog.club .meta { color: var(--muted); font-size: 13px; margin-top: 2px; }
 dialog.club .close { font: inherit; font-size: 20px; line-height: 1; background: none; border: none; color: var(--ink-2); cursor: pointer; padding: 4px; }
 dialog.club .body { padding: 12px 20px 20px; }
