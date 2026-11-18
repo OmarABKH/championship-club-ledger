@@ -20,6 +20,10 @@
       <a href="#clubs" data-nav="clubs">Clubs</a>
       <a href="#method" data-nav="method">Method</a>
     </div>
+    <label class="season">
+      <span>Season</span>
+      <select id="season-select" aria-label="Season shown across the site"></select>
+    </label>
   </div>
 </nav>
 
@@ -29,7 +33,7 @@
     <header class="site">
       <p class="kicker">Championship 2026/27</p>
       <h1 id="overview-title">The money behind the Championship</h1>
-      <p>What each of this season's 24 clubs earned, spent on wages and lost, taken from their latest accounts at Companies House. Most cover the 2024/25 season.</p>
+      <p>What each of this season's 24 clubs earned, spent on wages and lost, taken from their accounts at Companies House. Showing the <b data-season-label></b> season; switch seasons from the menu.</p>
     </header>
     <div class="tiles" id="tiles"></div>
     <div class="highlights" id="highlights"></div>
@@ -38,7 +42,7 @@
   <!-- Wages -->
   <section data-view="wages" hidden>
     <header class="view-head">
-      <p class="kicker">Wages</p>
+      <p class="kicker">Wages · <span data-season-label></span></p>
       <h1>Wages as a share of revenue</h1>
       <p class="lede">Staff costs (wages, bonuses, social security and pensions) divided by revenue. The line marks 100%: clubs to the right of it spent more on staff than they brought in, before any other costs.</p>
     </header>
@@ -48,7 +52,7 @@
   <!-- Revenue -->
   <section data-view="revenue" hidden>
     <header class="view-head">
-      <p class="kicker">Revenue</p>
+      <p class="kicker">Revenue · <span data-season-label></span></p>
       <h1>Where the money comes from</h1>
       <p class="lede">Revenue split into matchday (tickets and gate receipts), broadcasting (TV money, parachute and solidarity payments, prize money) and everything else (sponsorship, retail, catering, events).</p>
     </header>
@@ -68,17 +72,25 @@
   <!-- Profit & loss -->
   <section data-view="results" hidden>
     <header class="view-head">
-      <p class="kicker">Profit &amp; loss</p>
+      <p class="kicker">Profit &amp; loss · <span data-season-label></span></p>
       <h1>Profit or loss before tax</h1>
-      <p class="lede">Includes profits from selling players, which is how many clubs close the gap between what they earn and what they spend.</p>
+      <p class="lede" id="result-lede"></p>
     </header>
-    <div class="card"><div id="chart-result"></div></div>
+    <div class="card">
+      <div class="chart-tools">
+        <div class="controls" role="group" aria-label="Show results for">
+          <button type="button" data-result="season" aria-pressed="true">Chosen season</button>
+          <button type="button" data-result="three" aria-pressed="false">Three seasons combined</button>
+        </div>
+      </div>
+      <div id="chart-result"></div>
+    </div>
   </section>
 
   <!-- Clubs table -->
   <section data-view="clubs" hidden>
     <header class="view-head">
-      <p class="kicker">Clubs</p>
+      <p class="kicker">Clubs · <span data-season-label></span></p>
       <h1>All the figures</h1>
       <p class="lede">Click a column to sort, or a club for its full breakdown and a link to the original filing.</p>
     </header>
@@ -109,9 +121,10 @@
     </header>
     <div class="card">
       <ul>
-        <li><b>Source.</b> Each club's most recent annual accounts covering the 2024/25 season, filed at Companies House (Bolton's are published by the club for its parent company). Figures are as reported, in pounds.</li>
+        <li><b>Source.</b> Each club's annual accounts filed at Companies House (Bolton's are published by the club for its parent company). 2024/25 comes from the accounts for that year; 2023/24 and 2022/23 come from the 2023/24 accounts, which show the previous year alongside. Figures are as reported, in pounds.</li>
+        <li><b>Restated figures.</b> Clubs sometimes correct a previous year's figures in the following year's accounts. The site shows each year as first reported (Cardiff's 2023/24 staff costs, for example, were later restated), and notes where this happens.</li>
         <li><b>Which company.</b> The club's main operating company, or the group that owns it where that's where the full accounts are filed. The company used is named on each club's page.</li>
-        <li><b>Different year ends.</b> Most clubs' years end on 30 June; some use 31 May or 31 July. All cover a single 12-month season unless noted.</li>
+        <li><b>Different year ends.</b> Most clubs' years end on 30 June; some use 31 May or 31 July. A few periods are longer or shorter because a club changed its year end (Wolves 2024/25: 13 months; Swansea 2023/24: 11 months; Bristol City 2022/23: 13 months). These are marked in the table and on club pages.</li>
         <li><b>Revenue categories.</b> Clubs split revenue differently. Their lines are mapped to matchday, broadcasting and commercial &amp; other; anything that doesn't fit cleanly (e.g. catering) goes into commercial &amp; other.</li>
         <li><b>Checking the numbers.</b> The filings are scanned images, so they're read with OCR (text recognition). Every revenue breakdown is checked to add up to the reported total, and staff costs and the result before tax are checked against the income statement.</li>
         <li><b>Not a spending-rules (PSR) calculation.</b> Clubs can exclude spending on academies, women's football, community work and infrastructure from the EFL's profit and sustainability limits, and those figures aren't fully disclosed. A large loss here doesn't by itself mean a club broke the rules.</li>
