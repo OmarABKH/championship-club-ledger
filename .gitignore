@@ -1,0 +1,6 @@
+.DS_Store
+pipeline/pdf/
+pipeline/text/
+pipeline/ocr
+pipeline/render
+pipeline/*.png
